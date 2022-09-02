@@ -1,4 +1,5 @@
-﻿using CV19Statistics.Infrastructure.Commands.Base;
+﻿using System.Windows;
+using CV19Statistics.Infrastructure.Commands.Base;
 
 namespace CV19Statistics.Infrastructure.Commands
 {
@@ -6,6 +7,6 @@ namespace CV19Statistics.Infrastructure.Commands
     {
         public override bool CanExecute(object parameter) => true;
 
-        public override void Execute(object parameter) => App.Current.Shutdown();
+        public override void Execute(object parameter) => Application.Current.Shutdown();
     }
 }
