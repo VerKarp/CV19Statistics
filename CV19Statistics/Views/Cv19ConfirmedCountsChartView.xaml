@@ -9,7 +9,8 @@
              xmlns:m="clr-namespace:CV19Statistics.Models"
              xmlns:converters="clr-namespace:CV19Statistics.Infrastructure.Converters"
              xmlns:oxy="http://oxyplot.org/wpf"
-             d:DataContext="{d:DesignInstance vm:Cv19ConfirmedCountsChartViewModel, d:IsDesignTimeCreatable=True}"
+             xmlns:map="clr-namespace:MapControl;assembly=MapControl.WPF"
+             d:DataContext="{d:DesignInstance vm:Cv19ConfirmedCountsChartViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
@@ -30,7 +31,7 @@
         <GroupBox>
             <DockPanel>
                 <Button DockPanel.Dock="Top"
-                        Content="Refresh data"
+                        Content="Download data"
                         Command="{Binding RefreshDataCommand}"/>
 
                 <ListBox ItemsSource="{Binding Countries}"
@@ -59,6 +60,14 @@
 
         <GroupBox Grid.Column="2">
             <Grid>
+                <Grid.Resources>
+                    <converters:MapConverter x:Key="MapConverter"/>
+                </Grid.Resources>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
                 <oxy:Plot Title="CV19">
                     <oxy:Plot.Axes>
                         <oxy:LinearAxis Position="Left" Title="Count" 
@@ -74,8 +83,21 @@
                                     DataFieldX="Date"
                                     DataFieldY="Count"/>
                 </oxy:Plot>
+
+                <map:Map Grid.Row="1" 
+                         MinZoomLevel="4" MaxZoomLevel="21" MouseWheelZoomDelta="1"
+                         Center="{Binding SelectedCountry.Location,
+                    Converter={StaticResource MapConverter}}">
+                    <map:MapScale Margin="4" Opacity="0.5" 
+                                  VerticalAlignment="Bottom" 
+                                  Background="Transparent"/>
+                    <map:MapGraticule Opacity="0.2" Background="Transparent"/>
+                    <map:Map.MapLayer>
+                        <map:MapTileLayer TileSource="https://tile.openstreetmap.org/{z}/{x}/{y}.png"/>
+                    </map:Map.MapLayer>
+                </map:Map>
+
             </Grid>
         </GroupBox>
-
     </Grid>
 </UserControl>
