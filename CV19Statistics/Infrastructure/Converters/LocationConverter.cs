@@ -10,7 +10,7 @@ namespace CV19Statistics.Infrastructure.Converters
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (!(value is Point point)) return null;
-            return $"(lat: {point.X}; lon: {point.Y})";
+            return $"(lat: {string.Format("{0: 0.0000}", point.X)}; lon: {string.Format("{0: 0.0000}", point.Y)})";
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
