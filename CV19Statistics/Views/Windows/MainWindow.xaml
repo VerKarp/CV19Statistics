@@ -7,7 +7,7 @@
         xmlns:view="clr-namespace:CV19Statistics.Views"
         Title="CV19 Statistics" Height="450" Width="800">
     <Grid>
-        <view:CV19ConfirmedCountsChartView 
+        <view:Cv19ConfirmedCountsChartView 
             DataContext="{Binding Cv19ConfirmedCountsChartViewModel}"/>
     </Grid>
 </Window>
