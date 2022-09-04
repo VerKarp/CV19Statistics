@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <PackageReference Include="OxyPlot.Wpf" Version="1.0.0" />
+    <PackageReference Include="XAML.MapControl" Version="7.2.1" />
   </ItemGroup>
 
 </Project>
