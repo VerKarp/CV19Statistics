@@ -26,12 +26,12 @@ namespace CV19Statistics.Services
 
         private static IEnumerable<string> GetDataLines()
         {
-            using Stream data_string = (SynchronizationContext.Current is null ? GetDataStream() : Task.Run(GetDataStream)).Result;
-            using StreamReader data_reader = new(data_string);
+            using Stream dataString = (SynchronizationContext.Current is null ? GetDataStream() : Task.Run(GetDataStream)).Result;
+            using StreamReader dataReader = new(dataString);
 
-            while (!data_reader.EndOfStream)
+            while (!dataReader.EndOfStream)
             {
-                string line = data_reader.ReadLine();
+                string line = dataReader.ReadLine();
                 if (string.IsNullOrWhiteSpace(line)) continue;
                 if (line.Contains('"'))
                     line = line.Insert(line.IndexOf(',', line.IndexOf('"')) + 1, " -").Remove(line.IndexOf(',', line.IndexOf('"')), 1);
@@ -55,12 +55,12 @@ namespace CV19Statistics.Services
             foreach (string[] row in lines)
             {
                 string province = row[0].Trim();
-                string country_name = row[1].Trim(' ', '"');
+                string name = row[1].Trim(' ', '"');
                 double latitude = row[2] == string.Empty ? 0 : double.Parse(row[2], CultureInfo.InvariantCulture);
                 double longitude = row[3] == string.Empty ? 0 : double.Parse(row[3], CultureInfo.InvariantCulture);
                 int[] counts = row.Skip(5).Select(int.Parse).ToArray();
 
-                yield return (province, country_name, (latitude, longitude), counts);
+                yield return (province, name, (latitude, longitude), counts);
             }
         }
 

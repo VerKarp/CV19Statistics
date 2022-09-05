@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CV19Statistics"
         xmlns:view="clr-namespace:CV19Statistics.Views"
-        Title="CV19 Statistics" Height="450" Width="800">
+        Title="CV19 Statistics" Height="650" Width="1200">
     <Grid>
         <view:Cv19ConfirmedCountsChartView 
             DataContext="{Binding Cv19ConfirmedCountsChartViewModel}"/>

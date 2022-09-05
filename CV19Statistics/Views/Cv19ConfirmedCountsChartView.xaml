@@ -23,9 +23,9 @@
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="3*"/>
             <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="7*"/>
         </Grid.ColumnDefinitions>
 
         <GroupBox>
@@ -65,6 +65,7 @@
                 </Grid.Resources>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
@@ -84,7 +85,12 @@
                                     DataFieldY="Count"/>
                 </oxy:Plot>
 
-                <map:Map Grid.Row="1" 
+                <GridSplitter Grid.Row="1"
+                              HorizontalAlignment="Stretch"
+                              VerticalAlignment="Center"
+                              Height="6"/>
+
+                <map:Map Grid.Row="2" 
                          MinZoomLevel="4" MaxZoomLevel="21" MouseWheelZoomDelta="1"
                          Center="{Binding SelectedCountry.Location,
                     Converter={StaticResource MapConverter}}">
