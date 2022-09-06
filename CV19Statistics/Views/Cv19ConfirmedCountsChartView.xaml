@@ -30,9 +30,20 @@
 
         <GroupBox>
             <DockPanel>
-                <Button DockPanel.Dock="Top"
-                        Content="Download data"
-                        Command="{Binding RefreshDataCommand}"/>
+                <Grid DockPanel.Dock="Top">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Button Content="Confirmed" Command="{Binding SwitchStatisticDataTypeCommand}"
+                            CommandParameter="Confirmed"/>
+                    <Button Grid.Column="1" Content="Deaths" Command="{Binding SwitchStatisticDataTypeCommand}"
+                            CommandParameter="Deaths"/>
+                    <Button Grid.Column="2" Content="Recovered" Command="{Binding SwitchStatisticDataTypeCommand}"
+                            CommandParameter="Recovered"/>
+                </Grid>
 
                 <ListBox ItemsSource="{Binding Countries}"
                          SelectedItem="{Binding SelectedCountry}">
@@ -68,7 +79,7 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-
+                
                 <oxy:Plot Title="CV19">
                     <oxy:Plot.Axes>
                         <oxy:LinearAxis Position="Left" Title="Count" 
