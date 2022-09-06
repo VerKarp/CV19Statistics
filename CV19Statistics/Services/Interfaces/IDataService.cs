@@ -5,6 +5,6 @@ namespace CV19Statistics.Services.Interfaces
 {
     internal interface IDataService
     {
-        IEnumerable<Country> GetData();
+        IEnumerable<Country> GetData(Cv19StatisticsDataType statisticsDataType);
     }
 }

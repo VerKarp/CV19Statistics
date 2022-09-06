@@ -14,9 +14,29 @@ namespace CV19Statistics.Services
 {
     internal class DataService : IDataService
     {
-        private const string _dataSourceAddress = @"https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv";
+        private static Cv19StatisticsDataType dataType;
+        private static string _dataSourceAddress;
+        private const string _dataSourceConfirmedAddress = @"https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv";
+        private const string _dataSourceDeathsAddress = @"https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_deaths_global.csv";
+        private const string _dataSourceRecoveredAddress = @"https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_recovered_global.csv";
+
         private static async Task<Stream> GetDataStream()
         {
+            switch (dataType)
+            {
+                case Cv19StatisticsDataType.Confirmed:
+                    _dataSourceAddress = _dataSourceConfirmedAddress;
+                    break;
+
+                case Cv19StatisticsDataType.Deaths:
+                    _dataSourceAddress = _dataSourceDeathsAddress;
+                    break;
+
+                case Cv19StatisticsDataType.Recovered:
+                    _dataSourceAddress = _dataSourceRecoveredAddress;
+                    break;
+            }
+
             HttpClient client = new();
             HttpResponseMessage respone = await client.GetAsync(_dataSourceAddress,
                 HttpCompletionOption.ResponseHeadersRead);
@@ -64,8 +84,9 @@ namespace CV19Statistics.Services
             }
         }
 
-        public IEnumerable<Country> GetData()
+        public IEnumerable<Country> GetData(Cv19StatisticsDataType statisticsDataType)
         {
+            dataType = statisticsDataType;
             DateTime[] dates = GetDates();
 
             var data = GetCountriesData().GroupBy(d => d.Country);
